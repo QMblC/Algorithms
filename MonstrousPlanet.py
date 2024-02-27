@@ -37,9 +37,15 @@ requests[10] = [3, 1]
 requests[11] = [3, 2]
 """
 
+completed = dict()
+
 for x in range(q):
 
     request = input().split()
+
+    if (request[0] + " " + request[1]) in completed:
+        print(completed[request[0] + " " + request[1]])
+        continue
 
     last_value = sys.maxsize
     last_index = 0
@@ -50,4 +56,7 @@ for x in range(q):
         if (last_value >= max_element):
             last_value = max_element
             last_index = index
+        else: 
+            break
+    completed[request[0] + " " + request[1]] = last_index
     print(last_index)
