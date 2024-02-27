@@ -7,29 +7,35 @@ second_type = [input().split() for x in range(m)]
 
 q = int(input())
 
-completed = dict()
-result = []
 
 for x in range(q):
 
     request = input().split()
 
-    if (request[0] + " " + request[1]) in completed:
-        result.append(completed[request[0] + " " + request[1]])
-        continue
+    left = 0
+    right = l - 1
 
-    last_value = sys.maxsize
-    last_index = 0
+    while (right - left > 1):
 
-    for index in range(l):
+        middle = (left + right) // 2
 
-        max_element = max(int(first_type[int(request[0])][index]), int(second_type[int(request[1])][index]))
-        if (last_value >= max_element):
-            last_value = max_element
-            last_index = index
-        else: 
-            break
+        if int(first_type[int(request[0])][middle]) <= int(second_type[int(request[1])][middle]):
+            left = middle
+        else:
+            right = middle
 
-    completed[request[0] + " " + request[1]] = last_index
-    result.append(str(last_index))
-print("\n".join(result))
+    left_max = max(int(first_type[int(request[0])][left]), int(second_type[int(request[1])][left]))
+    right_max = max(int(first_type[int(request[0])][right]), int(second_type[int(request[1])][right]))
+    
+    if (left_max < right_max):
+        print(left)
+    else:
+        while True:
+            if (right + 1 == l):
+                break
+            if (max(int(first_type[int(request[0])][right]), int(second_type[int(request[1])][right])) == \
+                max(int(first_type[int(request[0])][right + 1]), int(second_type[int(request[1])][right + 1]))):
+                right += 1
+            else:
+                break
+        print(right)
