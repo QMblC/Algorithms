@@ -1,9 +1,9 @@
 def split_string(string: str):
     return [int(x) for x in string.split()]
 
-def binary_search(first_type, second_type, l):
+def binary_search(first_type, second_type):
     left = 0
-    right = l - 1
+    right = len(first_type) - 1
 
     while (right - left > 1):
         middle = (left + right) // 2
@@ -30,4 +30,4 @@ second_type = [split_string(input()) for i in range(m)]
 q = int(input())
 for i in range(q):
     request = split_string(input())
-    binary_search(first_type[request[0]], second_type[request[1]], l)
+    binary_search(first_type[request[0]], second_type[request[1]])
