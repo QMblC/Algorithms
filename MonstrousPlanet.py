@@ -1,30 +1,21 @@
-from functools import lru_cache
-
-n, m, l = [int(x) for x in input().split()]
-
 def split_string(string: str):
-    array = []
-    number = ""
+    splitted_array = []
+    number = 0
+    count = 0
     for char in string:
+        
         if char == ' ':
-            array.append(int(number))
-            number = ""
+            splitted_array.append(int(round(number * 10 ** (count - 1))))
+            number = 0
+            count = 0
         else:
-            number += char
+            number += int(char) * 0.1 ** count
+            count += 1
             
-    array.append(int(number))
-    return array
+    splitted_array.append(int(round(number * 10 ** (count - 1))))
+    return splitted_array
 
-first_type = [input().split() for x in range(n)]
-second_type = [input().split() for x in range(m)]
-
-
-q = int(input())
-
-for x in range(q):
-
-    request = input().split()
-
+def binary_search(first_type, second_type):
     left = 0
     right = l - 1
 
@@ -32,20 +23,33 @@ for x in range(q):
 
         middle = (left + right) // 2
 
-        if int(first_type[int(request[0])][middle]) <= int(second_type[int(request[1])][middle]):
+        if first_type[middle] <= int(second_type[middle]):
             left = middle
         else:
             right = middle
 
-    if (max(int(first_type[int(request[0])][left]), int(second_type[int(request[1])][left])) < max(int(first_type[int(request[0])][right]), int(second_type[int(request[1])][right]))):
+    if (max(first_type[left], int(second_type[left])) < max(first_type[right], int(second_type[right]))):
         print(left)
     else:
         while right + 1 < l:
             
-            if (max(int(first_type[int(request[0])][right]), int(second_type[int(request[1])][right])) == \
-                max(int(first_type[int(request[0])][right + 1]), int(second_type[int(request[1])][right + 1]))):
+            if (first_type[right] == first_type[right + 1]):
                 right += 1
             else:
                 break
             
         print(right)
+
+n, m, l = split_string(input())
+
+first_type = [split_string(input()) for x in range(n)]
+second_type = [input().split() for x in range(m)]
+
+q = int(input())
+
+for x in range(q):
+
+    request = input().split()
+
+    binary_search(first_type[int(request[0])], second_type[int(request[1])])
+
