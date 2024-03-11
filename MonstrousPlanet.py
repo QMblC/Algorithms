@@ -3,11 +3,11 @@ def split_string(string: str):
 
 def binary_search(first_type, second_type):
     left = 0
-    right = len(first_type) - 1
+    right = l - 1
 
     while (right - left > 1):
         middle = (left + right) // 2
-        if first_type[middle] <= int(second_type[middle]):
+        if first_type[middle] <= second_type[middle]:
             left = middle
         else:
             right = middle
