@@ -7,6 +7,9 @@ class Counter:
         self.negative_items = []
 
     def resize(self, new_size: int):
+
+        new_size = self.hash_func(new_size)
+        
         if new_size >= 0:
             for i in range(len(self.positive_items), new_size):
                 self.positive_items.append(0)
@@ -15,7 +18,13 @@ class Counter:
             for i in range(len(self.negative_items), new_size):
                 self.negative_items.append(0)
 
+    def hash_func(self, item):
+        return item
+
     def __getitem__(self, index):
+
+        index = self.hash_func(index)
+
         if index >= 0:
             if index >= len(self.positive_items):
                 self.resize(index + 1)
@@ -26,6 +35,8 @@ class Counter:
             return self.negative_items[abs(index) - 1]
 
     def increase_counter(self, index):
+
+        index = self.hash_func(index)
 
         if index >= 0:
             if index >= len(self.positive_items):
@@ -52,7 +63,3 @@ for index, item in enumerate(first_array):
 
     print(counter[item], end = ending)
 
-"""
--1 2 4 5 1 7 2 8 8 9 2 18 4
-2 9 17 828 -2 -1
-"""
