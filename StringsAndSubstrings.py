@@ -17,19 +17,13 @@ def find_min_k(hash, powers, string):
 
 string = input() 
 
-base = 26
-alphabet = [chr(x) for x in range(97, 97 + base)]
-
-hash = [0] * (len(string) + 1)
-powers = [1] * (len(string) + 1)
+hash = [0]
+powers = [1]
 
 number = 1000000000003
 
 for i in range(len(string)):
-    hash[i + 1] = hash[i] * base + alphabet.index(string[i])
-    powers[i + 1] = powers[i] * base
-
-print(hash)
-print(powers)
+    hash.append(hash[i] * 26 + ord(string[i]) - 97)
+    powers.append(powers[i] * 26)
 
 find_min_k(hash, powers, string)
