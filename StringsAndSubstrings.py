@@ -9,8 +9,8 @@ def find_min_k(hash, string):
             continue
 
         for i in range(0, len(string) - sub_length * 2 + 1, sub_length):
-            first_hash = hash[i + sub_length] - hash[i] * pows[sub_length]
-            second_hash = hash[i + sub_length * 2] - hash[i + sub_length] * pows[sub_length]
+            first_hash = (hash[i + sub_length] - hash[i] * pows[sub_length]) % number
+            second_hash = (hash[i + sub_length * 2] - hash[i + sub_length] * pows[sub_length]) % number
 
             if first_hash != second_hash:
                 flag = True
@@ -31,8 +31,10 @@ string = input()
 hash = [0]
 pows = [1]
 
+number = 1000000007
+
 for i in range(len(string)):
-    hash.append(hash[i] * 26 + ord(string[i]) - 97)
-    pows.append(pows[i] * 26)
+    hash.append((hash[i] * 26 + ord(string[i]) - 97) % number)
+    pows.append((pows[i] * 26) % number)
 
 find_min_k(hash, string)

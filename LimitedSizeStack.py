@@ -1,3 +1,5 @@
+import re
+
 class My_Stack:
 
     class Item:
@@ -19,28 +21,21 @@ class My_Stack:
 
         if self.size == 0:
             self.first_item = My_Stack.Item(value, None, None)
-            self.size += 1         
+            self.last_item = self.first_item       
         else:
             self.first_item = My_Stack.Item(value, None, self.first_item)
             self.first_item.next_item.previous_item = self.first_item
-
-            if self.last_item == None:
-                self.last_item = self.first_item.next_item
-                self.last_item.previous_item = self.first_item
             
-            self.size += 1
+        self.size += 1
 
-            if self.limit < self.size:
-                self.last_item = self.last_item.previous_item
-                self.last_item.next_item = None
-                self.size -= 1
-
-        print("ok")   
+        if self.limit < self.size:
+            self.last_item = self.last_item.previous_item
+            self.last_item.next_item = None
+            self.size -= 1 
+        
+        print("ok")
 
     def pop(self):
-        if (self.limit == 0):
-            print(0)
-            return
         print(self.first_item.value)
         self.first_item = self.first_item.next_item
         self.size -= 1
@@ -52,12 +47,13 @@ stack = My_Stack(int(input()))
 
 while True:
     request = input()
-    if "push" in request:
-        stack.push(request.split()[1])
-    if "pop" in request:
+
+    if re.match("push", request):
+        stack.push(request.split()[1])  
+    if re.match("pop", request):
         stack.pop()
-    if "count" in request:
+    if re.match("count", request):
         stack.count()
-    if "exit" in request:
+    if re.match("exit", request):
         print("bye")
         break
