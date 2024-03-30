@@ -5,9 +5,7 @@ for i in range(len(array)):
     for j in range(i + 1, len(array)):
         if int(array[j]) < int(array[index]):
             index = j
-    value = array[i]
-    array[i] = array[index]
-    array[index] = value
+    array[i], array[index] = array[index], array[i]
 
     if i + 1 == len(array) // 2:
         print(" ".join(array))
