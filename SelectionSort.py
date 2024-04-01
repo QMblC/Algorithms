@@ -1,13 +1,20 @@
+def select_sort(array):
+    for i in range(length):
+        index = i
+        for j in range(i + 1, length):
+            if array[j] < array[index]:
+                index = j
+        array[i], array[index] = array[index], array[i]
+
+        if i + 1 == middle:
+            print(" ".join(map(str, array)))
+
+    return array
+
 array = [int(x) for x in input().split()]
+length = len(array)
+middle = length // 2
 
-for i in range(len(array)):
-    index = i
-    for j in range(i + 1, len(array)):
-        if array[j] < array[index]:
-            index = j
-    array[i], array[index] = array[index], array[i]
 
-    if i + 1 == len(array) // 2:
-        print(*array, sep= " ")
 
-print(*array, sep= " ")
+print(" ".join(map(str, select_sort(array))))
