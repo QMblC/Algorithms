@@ -7,7 +7,7 @@ def select_sort(array):
         array[i], array[index] = array[index], array[i]
 
         if i + 1 == middle:
-            print(" ".join(map(str, array)))
+            print(" ".join(str(x) for x in array))
 
     return array
 
@@ -15,6 +15,4 @@ array = [int(x) for x in input().split()]
 length = len(array)
 middle = length // 2
 
-
-
-print(" ".join(map(str, select_sort(array))))
+print(" ".join(str(x) for x in select_sort(array)))
