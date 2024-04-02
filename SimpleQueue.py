@@ -5,7 +5,6 @@ class My_Queue:
         self.first_item = 0
         self.last_item = 0
         self.body = []
-        
 
     def push(self, value):
 
