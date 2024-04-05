@@ -3,30 +3,19 @@ import re
 class DragonQueue:
     def __init__(self) -> None:
         self.body = []
-        self.prince = None
-        self.size = 0
 
     def push_last(self, value):
         self.body.append(value)
-        self.size += 1
 
     def push_middle(self, value):
-        middle = len(self.body) // 2
-        if len(self.body) % 2 != 0:
-            middle += 1
+        middle = len(self.body) // 2 + len(self.body) % 2
         self.body.insert(middle, value)
-        self.size += 1
 
     def push_first(self, value):
         self.body.insert(0, value)
 
     def pop(self):
-        if self.prince == None:
-            value = self.body[0]
-            del self.body[0]
-            
-        self.size -= 1
-        return value
+        return self.body.pop(0)
 
 queue = DragonQueue()
 
