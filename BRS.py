@@ -1,9 +1,10 @@
 from typing import List
 
 k, m, n = [int(x) for x in input().split()]
+array = [x for x in range(m, n + 1)]
 counter = 0
 
-def count(min: int, max: int , k, scores: List[int]):
+def count(array: List[int], k, scores: List[int] = []):
     
     if len(scores) == k:
         global counter
@@ -13,16 +14,17 @@ def count(min: int, max: int , k, scores: List[int]):
 
     last_value = 999999999
 
-    for i in range(min, max):
+    for i in array:
+
+        if i < array[0] + k - 1 - len(scores):
+            continue 
+
         if len(scores) != 0:
-            last_value = int(scores[-1])
-        else:
-            if i < min + k - 1:
-                continue   
+            last_value = int(scores[-1]) 
 
         if i < last_value:   
             new_scores = scores + [str(i)]
-            count(min, max, k, new_scores)
+            count(array, k, new_scores)
 
-count(m, n + 1, k, [])
+count(array, k)
 print(counter)
