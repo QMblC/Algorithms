@@ -6,8 +6,11 @@ def quick_sort(array: list):
     else:
         pivot = array.pop(-1)       
         left, right = separate(array, pivot)
-        stage = quick_sort(left) + [pivot] + quick_sort(right)
-        
+        a = quick_sort(left)
+        b = quick_sort(right)
+        stage = a + [pivot] + b
+        print(a, pivot, b)
+        print(stage, end="\n\n")
         return stage
 
 def separate(array: list, pivot: int):
@@ -21,4 +24,5 @@ def separate(array: list, pivot: int):
 
     return left, right
 
-print(quick_sort(numbers))
+a = quick_sort(numbers)
+print(" ".join([str(x) for x in a]))

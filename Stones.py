@@ -1,24 +1,33 @@
-def count_pairs(i):
-    pairs = 0
-    for j in range(i + 1, stones_number):
-        if i < j and stones[i] >= stones[j]:
-            pairs += 1
-            pass
-    return pairs
+def merge_sort(stones):
+    if len(stones) == 1:
+        return stones, 0
+    
+    left, p1 = merge_sort(stones[ : len(stones) // 2])
+    right, p2 = merge_sort(stones[len(stones) // 2 : ])
+    
+    array, p = merge(left, right)
+    
+    return array, p + p1 + p2
 
-def sum_pairs(i = 0):
-    if i == stones_number:
-        return 0
-    else:
-        return count_pairs(i) + sum_pairs(i + 1)
+def merge(left, right):
+    array = []
+    p = i = j = 0
+    
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            array.append(left[i])
+            i += 1
+        else:
+            p += len(left) - i
+            array.append(right[j])
+            j += 1
+    
+    array += left[i:] + right[j:]
+    return array, p
 
-def handle():
-    for n in range(stones_number):
-        stones.append(int(input()))
-
-
-stones_number = int(input())
 stones = []
+for n in range(int(input())):
+    stones.append(int(input()))
 
-handle()
-print(sum_pairs())
+a, p = merge_sort(stones)
+print(p)
