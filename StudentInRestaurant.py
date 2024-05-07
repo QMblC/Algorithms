@@ -25,15 +25,8 @@ class Order:
         new_order = Order(self.student_money, self.ids, self.calories, self.cost)
         return new_order
 
-n, w = [int(x) for x in input().split()]
-
 max_cal = 0
 max_ind = []
-
-dishes = []
-for index in range(n):
-    price, calories = [int(x) for x in input().split()]
-    dishes.append(Dish(index + 1, price, calories))
 
 def count(dishes: List[Dish], order: Order, dish_index = 0):
 
@@ -49,6 +42,7 @@ def count(dishes: List[Dish], order: Order, dish_index = 0):
             count(dishes, new_order.add_dish(dish), dish_index)
 
 def update_data(order: Order):
+
     global max_cal
     global max_ind
     if order.calories > max_cal:
@@ -65,6 +59,13 @@ def update_data(order: Order):
                 break
             else:
                 break
+
+n, w = [int(x) for x in input().split()]
+dishes = []
+
+for index in range(n):
+    price, calories = [int(x) for x in input().split()]
+    dishes.append(Dish(index + 1, price, calories))
 
 count(dishes, Order(w))
 print(len(max_ind), max_cal)
