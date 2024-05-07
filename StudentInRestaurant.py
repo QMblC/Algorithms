@@ -1,24 +1,28 @@
 from typing import List
 
 class Dish:
-    def __init__(self, index, price, calories) -> None:
-        self.index = index
+    def __init__(self, id, price: int, calories: int) -> None:
+        self.id = id
         self.price = price
-        self.calories = calories
+        self.calories = calories    
 
 class Order:
-    def __init__(self, indexes = [], calories = 0, cost = 0) -> None:
+    def __init__(self, student_money = 0, indexes = [], calories = 0, cost = 0) -> None:
         self.indexes = indexes
         self.calories = calories
         self.cost = cost
+        self.student_money = student_money
 
     def add_dish(self, dish: Dish):
-        self.indexes = self.indexes + [dish.index]
+        self.indexes = self.indexes + [dish.id]
         self.calories += dish.calories
         self.cost += dish.price
 
+        return self
+
     def copy(self):
-        return Dish(self.indexes, self.calories, self.cost)
+        new_order = Order(self.student_money, self.indexes, self.calories, self.cost)
+        return new_order
 
 n, w = [int(x) for x in input().split()]
 
@@ -30,25 +34,25 @@ for index in range(n):
     price, calories = [int(x) for x in input().split()]
     dishes.append(Dish(index + 1, price, calories))
 
-def count(student_money, cost, dishes: List[Dish], calories, indexes: List[int], di = 0):
-    if cost >= student_money or di + 1 == len(dishes):
+def count(dishes: List[Dish], order: Order, dish_index = 0):
+
+    if order.cost >= order.student_money or dish_index + 1 == len(dishes):
         global max_cal
         global max_ind
-        if calories > max_cal:
-            max_cal = calories
-            max_ind = indexes
-        elif calories == max_cal:
-            if len(indexes) > len(max_ind):
-                max_ind = indexes
+        if order.calories > max_cal:
+            max_cal = order.calories
+            max_ind = order.indexes
+        elif order.calories == max_cal and len(order.indexes) > len(max_ind):
+            max_ind = order.indexes
         return
     
-    for di in range(di, len(dishes)):
-        dish = dishes[di]
-        if cost + dish.price <= student_money and not(dish.index in indexes):
-            new_indexes = indexes + [dish.index]
-            count(student_money, cost + dish.price, dishes, calories + dish.calories, new_indexes, di)
+    for dish_index in range(dish_index, len(dishes)):
+        dish = dishes[dish_index]
+        if order.cost + dish.price <= order.student_money and not(dish.id in order.indexes):
+            new_order = order.copy()
+            count(dishes, new_order.add_dish(dish), dish_index)
 
 
-count(w,0,dishes,0,[])
+count(dishes, Order(w))
 print(len(max_ind), max_cal)
 print(*max_ind, sep= " ")
