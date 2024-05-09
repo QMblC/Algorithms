@@ -6,7 +6,7 @@ def get_kth(array: list, k: int):
     r = len(array)
 
     while l + 1 < r:
-        m = separate(array,l,r)
+        m = partition(array,l,r)
         if k >= m:
             l = m
         else:
@@ -14,28 +14,28 @@ def get_kth(array: list, k: int):
         return array[l]
 
 
-def separate(array: list, left, right):
-    if right - left < 1:
-        return left
+def partition(array, left: int, right: int):
+    if right - 1 <= left:
+        return
+    
     i = left
     j = right - 1
 
-    pivot = array[0]
+    pivot = array[-1]
 
     while i < j:
         while array[i] < pivot:
             i += 1
         while array[j] > pivot:
             j -= 1
-
+        
         if i <= j:
-            tmp = array[i]
-            array[i] = array[j]
-            array[j] = tmp
+            array[i], array[j] = array[j], array[i]
             i += 1
             j -= 1
         else:
             break
+
     return i
 
 array = get_kth(numbers, k)
