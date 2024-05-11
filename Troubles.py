@@ -5,15 +5,15 @@ def quick_sort(array: List[int], left: int, right: int):
     if left >= right:
         return
     
-    pivot_index = partition(array, left, right, array[right])
+    pivot = partition(array, left, right, array[right])
 
-    print(array[pivot_index])
+    print(array[pivot])
 
-    quick_sort(array, left, pivot_index - 1)
-    quick_sort(array, pivot_index + 1, right)
+    quick_sort(array, left, pivot - 1)
+    quick_sort(array, pivot + 1, right)
 
 def partition(array: List[int], left: int, right: int, pivot: int):
-
+    
     i = left
     j = right
 
@@ -22,16 +22,20 @@ def partition(array: List[int], left: int, right: int, pivot: int):
         while array[i] < pivot:
             i += 1
 
-        while array[j] >= pivot:
+        while i <= j and array[j] >= pivot:
             j -= 1
 
         if i <= j:
             array[i], array[j] = array[j], array[i]
+        else:
+            break
 
     array[i], array[right] = array[right], array[i]
 
     return i
 
-arr = [179, 181, 165, 184, 190, 152, 167]
-quick_sort(arr, 0, len(arr) - 1)
-print(arr)
+
+array = [int(x) for x in input().split()]
+
+quick_sort(array, 0, len(array) - 1)
+print(" ".join([str(x) for x in array]))
