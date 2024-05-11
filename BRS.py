@@ -2,15 +2,13 @@ from typing import List
 
 k, m, n = [int(x) for x in input().split()]
 array = [x for x in range(m, n + 1)]
-counter = 0
 
-def count(array: List[int], k, scores: List[int] = []):
+def count(array: List[int], k, scores: List[int] = [], counter = 0):
     
     if len(scores) == k:
-        global counter
-        counter += 1
+
         print(" ".join(scores))
-        return
+        return 1
 
     last_value = 999999999
 
@@ -24,7 +22,9 @@ def count(array: List[int], k, scores: List[int] = []):
 
         if i < last_value:   
             new_scores = scores + [str(i)]
-            count(array, k, new_scores)
+            counter += count(array, k, new_scores)
+    
+    return counter
 
-count(array, k)
+counter = count(array, k)
 print(counter)
