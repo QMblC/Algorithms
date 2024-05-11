@@ -1,44 +1,37 @@
 from typing import List
 
-numbers = [int(x) for x in input().split()]
+def quick_sort(array: List[int], left: int, right: int):
 
-def quick_sort(array: list, left, right):
-    if right - left <= 1:
-        return array
-    while right - left > 1:
-        n = partition(array, left, right)
-        if n - left > right - n:
-            quick_sort(array, n, right)
-            right = n
-        else:
-            quick_sort(array, left, n)
-            left = n
-            
-
-
-def partition(array: List[int], left: int, right: int):
-    if right - 1 <= left:
+    if left >= right:
         return
     
+    pivot_index = partition(array, left, right, array[right])
+
+    print(array[pivot_index])
+
+    quick_sort(array, left, pivot_index - 1)
+    quick_sort(array, pivot_index + 1, right)
+
+def partition(array: List[int], left: int, right: int, pivot: int):
+
     i = left
-    j = right - 1
+    j = right
 
-    pivot = array[-1]
+    while i <= j:
 
-    while i < j:
         while array[i] < pivot:
             i += 1
-        while array[j] > pivot:
+
+        while array[j] >= pivot:
             j -= 1
-        
+
         if i <= j:
             array[i], array[j] = array[j], array[i]
-            i += 1
-            j -= 1
-        else:
-            break
+
+    array[i], array[right] = array[right], array[i]
 
     return i
 
-a = quick_sort(numbers, 0, len(numbers))
-print(" ")
+arr = [179, 181, 165, 184, 190, 152, 167]
+quick_sort(arr, 0, len(arr) - 1)
+print(arr)
