@@ -1,36 +1,34 @@
 from typing import List
 
-def partition(array: List[int], left: int, right: int):
+def find_kth(array: List[int], k: int):
 
-    pivot = array[right]
-    i = left
-    j = left
+    left = []
+    right = []
+    middle = []
 
-    while j < right:
-
-        if array[j] <= pivot:
-            array[i], array[j] = array[j], array[i]
-            i += 1
-        j += 1
-
-    array[i], array[right] = array[right], array[i]
-
-    return i
-
-def find_kth(array: List[int], left: int, right: int, k: int):
-
-    if left <= right:
-        pivot_index = partition(array, left, right)
-        if pivot_index == k:
-            print(array[pivot_index])
-            return
-        elif pivot_index < k:
-            find_kth(array, pivot_index + 1, right, k)
+    if len(array) == 1:
+        return array[0]
+    
+    pivot = array[-1]
+     
+    for i in array:
+        if i < pivot:
+            left.append(i)
+        elif i > pivot:
+            right.append(i)
         else:
-            find_kth(array, left, pivot_index - 1, k)
+            middle.append(i)
+
+    length = len(left) + len(middle)
+
+    if k < len(left):
+        return find_kth(left, k)
+    elif k < length:
+        return middle[0]
+    else:
+        return find_kth(right, k - length)
     
 array = [int(x) for x in input().split()]
-
 k = int(input())
 
-find_kth(array, 0, len(array) - 1, k)
+print(find_kth(array, k))
