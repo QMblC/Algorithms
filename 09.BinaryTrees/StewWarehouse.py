@@ -40,6 +40,9 @@ class Tree:
 
     def add(self, number: int):
         root = self.root
+        if not root:
+            self.root = Root(number)
+            return
         while root:
             if number < root.value:
                 if not root.left_branch:
@@ -102,6 +105,36 @@ class Tree:
                 next_root = next_root.left_branch
             root.value = next_root.value
             self.delete(next_root)
+    def get_min(self):
+        root = self.root
+        if not root:
+            return None
+        while root.left_branch:
+            root = root.left_branch
+
+        return root
+
+    def get_max(self):
+        root = self.root
+
+        if not root:
+            return None
+
+        while root.right_branch:
+            root = root.right_branch
+
+        return root
+    
+    def get_list(self, root: Root):
+        if not root:
+            return
+        
+        self.get_list(root.left_branch)
+        if root != self.get_max():
+            print(root.value, end = " ")
+        else:
+            print(root.value)
+        self.get_list(root.right_branch)
 
     def handle_request(self, request: List[str]):
 
@@ -120,16 +153,29 @@ class Tree:
         elif request[0] == "find":
             root = self.find(int(request[1]))
             if root:
-                print("Число нашлось")
+                print("Такая банка есть")
             else:
-                print("Число не нашлось")
+                print("Такой банки нет")
 
-        elif request[0] == "next":
-            next_root = self.next(self.find(int(request[1])))
-            if next_root:
-                print(next_root.value)
+        elif request[0] == "min":
+            root = self.get_min()
+            if not root:
+                print("Склад пуст")
             else:
-                print("Следующего числа нет")
+                print(root.value)
+        
+        elif request[0] == "max":
+            root = self.get_max()
+            if not root:
+                print("Склад пуст")
+            else:
+                print(root.value)
+
+        elif request[0] == "list":
+            if self.root:
+                self.get_list(self.root)
+            else:
+                print()
 
 array = [int(x) for x in input().split()]
 
