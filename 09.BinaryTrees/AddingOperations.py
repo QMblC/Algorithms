@@ -43,14 +43,12 @@ class Tree:
         while root:
             if number < root.value:
                 if not root.left_branch:
-                    root.left_branch = Root(number)
-                    root.left_branch.parent = root
+                    root.left_branch = Root(number, root)
                     break
                 root = root.left_branch
             else:
                 if not root.right_branch:
-                    root.right_branch = Root(number)
-                    root.right_branch.parent = root
+                    root.right_branch = Root(number, root)
                     break
                 root = root.right_branch
 
@@ -79,6 +77,7 @@ class Tree:
         if not next_root:
             return None
         return next_root
+    
             
     def delete(self, number: int):
         root = self.find(number)
@@ -96,9 +95,28 @@ class Tree:
                 subsitude.delete_branch()
                 root.right_branch = subsitude.right_branch
             else:
-                pass
+                root.value = subsitude.value
+                subsitude.delete_branch()
         
         else:
+
+            if root.left_branch:
+                if root.parent.left_branch == root:
+                    root.parent.left_branch = root.left_branch
+                    root.left_branch.parent = root.parent
+
+                elif root.parent.right_branch == root:
+                    root.parent.right_branch = root.left_branch
+                    root.left_branch.parent = root.parent
+            else:
+                if root.parent.left_branch == root:
+                    root.parent.left_branch = root.right_branch
+                    root.right_branch.parent = root.parent
+
+                elif root.parent.right_branch == root:
+                    root.parent.right_branch = root.right_branch
+                    root.right_branch.parent = root.parent
+
             if root.parent.left_branch == root:
 
                 if root.left_branch:
@@ -106,19 +124,15 @@ class Tree:
                     root.left_branch.parent = root.parent               
                 else:
                     root.parent.left_branch = root.right_branch
-                    root.right_branch.parent = root.parent
-
-                
+                    root.right_branch.parent = root.parent     
                 
             elif root.parent.right_branch == root:
                 if root.right_branch:
                     root.parent.right_branch = root.left_branch
-                    root.left_branch.parent = root.parent               
+                    root.right_branch.parent = root.parent               
                 else:
                     root.parent.right_branch = root.right_branch
-                    root.right_branch.parent = root.parent
-
-                root.right_branch.parent = root.parent
+                    root.left_branch.parent = root.parent
 
     def get_substitude(self, root: Root):
         start = root
@@ -176,7 +190,6 @@ class Tree:
                 print(next_root.value)
             else:
                 print("Следующего числа нет")
-
 
 array = [int(x) for x in input().split()]
 
