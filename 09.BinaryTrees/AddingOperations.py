@@ -63,19 +63,6 @@ class Tree:
                 root = root.right_branch
         return None
     
-    def next(self, number):
-        root = self.root
-
-        next_root = None
-        
-        while root:
-            if number < root.value:
-                next_root = root
-                root = root.left_branch
-            else:
-                root = root.right_branch
-        return next_root
-    
     def next(self, root: Root):
 
         if not root:
