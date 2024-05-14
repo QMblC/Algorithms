@@ -65,6 +65,7 @@ class Tree:
     
     def next(self, number):
         root = self.root
+
         next_root = None
         
         while root:
@@ -73,79 +74,67 @@ class Tree:
                 root = root.left_branch
             else:
                 root = root.right_branch
-
-        if not next_root:
-            return None
         return next_root
     
-            
-    def delete(self, number: int):
-        root = self.find(number)
+    def next(self, root: Root):
 
+        if not root:
+            return None
+        
+        if root.right_branch:
+            next_root = root.right_branch
+            
+            while next_root.left_branch:
+                next_root = next_root.left_branch
+
+            return next_root
+        
+        next_root = root
+
+        while next_root.parent and next_root.parent.right_branch == next_root:
+            next_root = next_root.parent
+
+        return next_root.parent
+             
+    def find_deleted_root(self, number: int):
+
+        root = self.find(number)
         if not root:
             return
         
-        if not root.right_branch and not root.left_branch:
-            root.delete_branch()
-        
-        elif root.right_branch and root.left_branch:
-            subsitude = self.get_substitude(root)
-            if subsitude.parent == root:
-                root.value = subsitude.value
-                subsitude.delete_branch()
-                root.right_branch = subsitude.right_branch
-            else:
-                root.value = subsitude.value
-                subsitude.delete_branch()
-        
-        else:
+        self.delete(root)
 
+    def delete(self, root: Root):
+        if not root:
+            return
+        
+        if not root.left_branch or not root.right_branch:
+            branch = None
             if root.left_branch:
-                if root.parent.left_branch == root:
-                    root.parent.left_branch = root.left_branch
-                    root.left_branch.parent = root.parent
-
-                elif root.parent.right_branch == root:
-                    root.parent.right_branch = root.left_branch
-                    root.left_branch.parent = root.parent
+                branch = root.left_branch
             else:
-                if root.parent.left_branch == root:
-                    root.parent.left_branch = root.right_branch
-                    root.right_branch.parent = root.parent
+                branch = root.right_branch
 
-                elif root.parent.right_branch == root:
-                    root.parent.right_branch = root.right_branch
-                    root.right_branch.parent = root.parent
-
+            if root == self.root:
+                self.root = branch
+                if not branch:
+                    branch.parent = None
+            
             if root.parent.left_branch == root:
-
-                if root.left_branch:
-                    root.parent.left_branch = root.left_branch
-                    root.left_branch.parent = root.parent               
-                else:
-                    root.parent.left_branch = root.right_branch
-                    root.right_branch.parent = root.parent     
-                
-            elif root.parent.right_branch == root:
-                if root.right_branch:
-                    root.parent.right_branch = root.left_branch
-                    root.right_branch.parent = root.parent               
-                else:
-                    root.parent.right_branch = root.right_branch
-                    root.left_branch.parent = root.parent
-
-    def get_substitude(self, root: Root):
-        start = root
-
-        if root.right_branch:
-            root = root.right_branch
-
-        while root.left_branch:
-            root = root.left_branch
-
-        if start == root:
-            return None
-        return root
+                root.parent.left_branch = branch
+                if branch:
+                    branch.parent = root.parent
+            
+            else:
+                root.parent.right_branch = branch
+                if branch:
+                    branch.parent = root.parent
+        else:
+            next_root = root.right_branch
+            while next_root.left_branch:
+                next_root = next_root.left_branch
+            root.value = next_root.value
+            self.delete(next_root)
 
     @staticmethod
     def draw(root: Root, is_single_branch = True, string = None):
@@ -169,23 +158,28 @@ class Tree:
         Tree.draw(root.right_branch, True, new_string)
 
     def handle_request(self, request: List[str]):
+
         if request[0] == "print":
             Tree.draw(self.root)
+
         elif request[0] == "add":
             for number in request[1:]:
                 self.add(int(number))
             print("Ok")
+
         elif request[0] == "delete":
-            self.delete(int(request[1]))
+            self.find_deleted_root(int(request[1]))
             print("Ok")
+
         elif request[0] == "find":
             root = self.find(int(request[1]))
             if root:
                 print("Число нашлось")
             else:
                 print("Число не нашлось")
+
         elif request[0] == "next":
-            next_root = self.next(int(request[1]))
+            next_root = self.next(self.find(int(request[1])))
             if next_root:
                 print(next_root.value)
             else:
