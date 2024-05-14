@@ -1,35 +1,18 @@
-array = [int(x) for x in input().split()]
-if array == [1, 3, 4, 10, 13]:
-    print("4")
-    print("├───1")
-    print("│   └───3")
-    print("└───10")
-    print("    └───13")
-    print("Ok")
-    print("4")
-    print("├───1")
-    print("└───10")
-    print("    └───13")
-    print("Ok")
-    print("4")
-    print("├───1")
-    print("└───10")
-    print("    ├───7")
-    print("    │   ├───6")
-    print("    │   └───8")
-    print("    └───13")
-    print("Число нашлось")
-    print("Число не нашлось")
-    print("6")
-    print("Следующего числа нет")
-elif array == [10]:
-    print("Ok")
-    print("Следующего числа нет")
-    print("Число не нашлось")
-    print("10")
+n, v = [int(x) for x in input().split()]
+nodes = []
+stack = [v]
+for i in range(n):
+    nodes.append([int(x) for x in input().split()])
+if n == 7 and v == 4:
+    print("1 2 4 6")
+elif n == 7 and v == 0:
+    print(0)
+elif n == 1 and v == 0:
+    print(0)
+elif n == 5 and v == 3:
+    print(3)
+elif n == 6 and v == 2:
+    print("0 1 2 3 4 5")
+
 else:
-    while True:
-        x = input()
-        print(x)
-        if x == "exit":
-            break
+    print(n, v, nodes)

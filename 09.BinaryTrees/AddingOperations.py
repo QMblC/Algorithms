@@ -81,15 +81,7 @@ class Tree:
         while next_root.parent and next_root.parent.right_branch == next_root:
             next_root = next_root.parent
 
-        return next_root.parent
-             
-    def find_deleted_root(self, number: int):
-
-        root = self.find(number)
-        if not root:
-            return
-        
-        self.delete(root)
+        return next_root.parent        
 
     def delete(self, root: Root):
         if not root:
@@ -155,7 +147,7 @@ class Tree:
             print("Ok")
 
         elif request[0] == "delete":
-            self.find_deleted_root(int(request[1]))
+            self.delete(self.find(int(request[1])))
             print("Ok")
 
         elif request[0] == "find":
