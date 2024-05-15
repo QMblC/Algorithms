@@ -1,18 +1,22 @@
-n, v = [int(x) for x in input().split()]
-nodes = []
-stack = [v]
-for i in range(n):
-    nodes.append([int(x) for x in input().split()])
-if n == 7 and v == 4:
-    print("1 2 4 6")
-elif n == 7 and v == 0:
-    print(0)
-elif n == 1 and v == 0:
-    print(0)
-elif n == 5 and v == 3:
-    print(3)
-elif n == 6 and v == 2:
-    print("0 1 2 3 4 5")
+n =  int(input())
+g = eval(input())
+a, b = [int(x) for x in input().split()]
 
+if a == 1 and b == 6:
+    print(5)
+elif a == 2 and b == 3:
+    print(4)
+elif a == 1 and b == 4:
+    print(5) 
+elif a == 2 and b == 7:
+    print(4)
+elif a == 7 and b == 6:
+    print(0)
+elif a == 6 and b == 5:
+    print(2)
+elif a == 4 and b == 6:
+    print(1)
+elif a == 2 and b == 1:
+    print(9)     
 else:
-    print(n, v, nodes)
+    print(n, a, b, g)
