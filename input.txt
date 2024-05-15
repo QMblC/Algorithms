@@ -72,3 +72,14 @@ add 2 2 8
 0 2
 4 7
 1 6
+
+################################
+add 1
+add 8
+add 1
+add 1
+add 5
+pop
+structure
+pop
+exit

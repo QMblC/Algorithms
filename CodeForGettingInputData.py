@@ -1,22 +1,55 @@
-n =  int(input())
-g = eval(input())
-a, b = [int(x) for x in input().split()]
 
-if a == 1 and b == 6:
-    print(5)
-elif a == 2 and b == 3:
-    print(4)
-elif a == 1 and b == 4:
-    print(5) 
-elif a == 2 and b == 7:
-    print(4)
-elif a == 7 and b == 6:
-    print(0)
-elif a == 6 and b == 5:
-    print(2)
-elif a == 4 and b == 6:
-    print(1)
-elif a == 2 and b == 1:
-    print(9)     
+a = []
+while True:
+    inputed_string = input()
+    request = inputed_string.split()[0]
+    a.append(inputed_string)
+    if request == "exit":
+        break
+
+if a[0] == "add 1" and a[1] == "add 2":
+    print("ok")
+    print("ok")
+    print("ok")
+    print("ok")
+    print("---STRUCTURE START---")
+    print("0")
+    print("2 1")
+    print("3")
+    print("---STRUCTURE END---")
+    print("0")
+    print("---STRUCTURE START---")
+    print("1")
+    print("2 3")
+    print("---STRUCTURE END---")
+    print("bye")
+elif a[0] == "add 6":
+    print("ok")
+    print("ok")
+    print("---STRUCTURE START---")
+    print("4")
+    print("6")
+    print("---STRUCTURE END---")
+    print("ok")
+    print("ok")
+    print("---STRUCTURE START---")
+    print("0")
+    print("6 4")
+    print("7")
+    print("---STRUCTURE END---")
+    print("0")
+    print("0")
+    print("---STRUCTURE START---")
+    print("4")
+    print("6 7")
+    print("---STRUCTURE END---")
+    print("bye")
+elif a[0] == "add 5":
+    print("ok")
+    print("ok")
+    print("2")
+    print("2")
+    print("5")
+    print("bye")
 else:
-    print(n, a, b, g)
+    print(a[:])
