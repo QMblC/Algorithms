@@ -1,6 +1,6 @@
 from typing import List
 
-n, m = map(int, input().split())
+n, m = [int(x) for x in input().split()]
 tiles = []
 
 for i in range(n):
@@ -25,6 +25,6 @@ def count_coins(n: int, m: int, tiles: List[int]):
 
         previous_row = current_row
 
-    print(previous_row[-1])
+    return previous_row[-1]
 
-count_coins(n, m, tiles)
+print(count_coins(n, m, tiles))
