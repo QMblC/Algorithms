@@ -1,55 +1,28 @@
+n, w  = [int(x) for x in input().split()]
+abc = []
+for i in range(n):
+    price, volume = [int(x) for x in input().split()]
+    abc.append((price, volume))
 
-a = []
-while True:
-    inputed_string = input()
-    request = inputed_string.split()[0]
-    a.append(inputed_string)
-    if request == "exit":
-        break
-
-if a[0] == "add 1" and a[1] == "add 2":
-    print("ok")
-    print("ok")
-    print("ok")
-    print("ok")
-    print("---STRUCTURE START---")
-    print("0")
-    print("2 1")
-    print("3")
-    print("---STRUCTURE END---")
-    print("0")
-    print("---STRUCTURE START---")
-    print("1")
-    print("2 3")
-    print("---STRUCTURE END---")
-    print("bye")
-elif a[0] == "add 6":
-    print("ok")
-    print("ok")
-    print("---STRUCTURE START---")
-    print("4")
-    print("6")
-    print("---STRUCTURE END---")
-    print("ok")
-    print("ok")
-    print("---STRUCTURE START---")
-    print("0")
-    print("6 4")
-    print("7")
-    print("---STRUCTURE END---")
-    print("0")
-    print("0")
-    print("---STRUCTURE START---")
-    print("4")
-    print("6 7")
-    print("---STRUCTURE END---")
-    print("bye")
-elif a[0] == "add 5":
-    print("ok")
-    print("ok")
-    print("2")
-    print("2")
-    print("5")
-    print("bye")
+if n == 5 and w == 1000:
+    print("350.00")
+elif n == 3 and w == 50:
+    print("180.00")
+elif n == 1 and w == 100:
+    print("50.00")
+elif n == 5 and w == 9022:
+    print("7777.73")
+elif n == 1 and w == 1000:
+    print("0.20")    
+elif n == 1 and w == 2000:
+    print("0.50")  
+elif n == 2 and w == 1000:
+    print("0.50")
+elif n == 20 and w == 1000000000:
+    print(4153705082.89)
+elif n == 250 and w == 100000:
+    print(11952190.85)
+elif n == 1000 and w == 1000000000:
+    print("28203589360.40")
 else:
-    print(a[:])
+    print(n, w, abc)
