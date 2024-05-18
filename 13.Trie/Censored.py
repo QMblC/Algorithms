@@ -1,19 +1,17 @@
-from functools import lru_cache
-
 class Trie:
     class Node:
         def __init__(self) -> None:
             self.is_end = False
-            self.children = [0] * 98
+            self.children = dict()
 
         def contains(self, char: str):
-            return self.children[ord(char) - 30] != 0
+            return char in self.children
         
         def add_child(self, char: str):
-            self.children[ord(char) - 30] = Trie.Node()
+            self.children[char] = Trie.Node()
         
         def get_child(self, char: str):
-            return self.children[ord(char) - 30]
+            return self.children[char]
 
             
     def __init__(self) -> None:
@@ -32,7 +30,6 @@ class Trie:
 
         node.is_end = True
 
-    @lru_cache
     def is_banned(self, word: str):
         node = self.root
         for char in word:
@@ -63,19 +60,16 @@ for i in range(m):
     line = input()
     position = 0
     
-    for index, word in enumerate(line.split()):
+    for word in line.split():
 
         length = len(word)
-
-        for j in range(len(word)):
-            part = word[j:]
         
-            if trie.is_banned(part.lower()):
+        for j in range(length):
+
+            if trie.is_banned(word[j:].lower()):
+
+                print(i + 1, position + j + 1)
                 is_found = True
-                position += j
-
-                print(i + 1, position + 1)    
-
                 break
 
         if is_found:
@@ -88,3 +82,4 @@ for i in range(m):
 
 if not is_found:
     print("Одобрено")
+
