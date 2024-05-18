@@ -38,6 +38,7 @@ class Trie:
         return node.is_end
 
 trie = Trie()
+
 banned = []
 
 n = int(input())
